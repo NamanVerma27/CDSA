@@ -1,23 +1,28 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
-// Recursive function to convert binary number `n` to Gray code
+// Helper function to calculate the Gray code of the binary number
 int binaryToGray(int n) {
-    // Base case: if `n` is 0, the Gray code is also 0
-    if (n == 0)
-        return 0;
+    // Base case: when n is 0 or 1, return n (as MSB will be the same)
+    if (n == 0 || n == 1)
+        return n;
     
-    // Recursive case: calculate Gray code of (n >> 1) and XOR it with n
-    return (n ^ (n >> 1));
+    // Recursively calculate the Gray code of n-1
+    int grayCode = binaryToGray(n / 2); // Recursively call for smaller values of n
+    
+    // The current Gray code is obtained by XORing n with the next bit of n
+    int currentGrayCode = (n % 2) ^ ((n / 2) % 2);
+    
+    // Return the updated Gray code
+    return currentGrayCode;
 }
 
 int main() {
     int n;
-    cout << "Enter a binary number in decimal form: ";
+    cout << "Enter the binary number in decimal: ";
     cin >> n;
     
-    int grayCode = binaryToGray(n);
-    cout << "The Gray code of " << n << " is: " << grayCode << endl;
-
+    cout << "The Gray code of " << n << " is: " << binaryToGray(n) << endl;
     return 0;
 }
