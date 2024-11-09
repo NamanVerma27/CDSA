@@ -7,8 +7,9 @@ int Bin(int n, int pos) {
         return n * pos;
     
     // Recursive case: calculate binary and adjust position
+    int bin = ((n % 2) * pos);
     pos *= 10;
-    int bin = ((n % 2) * pos) + Bin(n / 2, pos);
+    bin = bin + Bin(n / 2, pos);
     return bin;
 }
 
